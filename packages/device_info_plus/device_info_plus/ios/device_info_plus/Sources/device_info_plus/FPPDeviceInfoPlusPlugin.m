@@ -31,8 +31,12 @@
       isiOSAppOnMac = [NSNumber numberWithBool:[info isiOSAppOnMac]];
     }
     NSNumber *isiOSAppOnVision = [NSNumber numberWithBool:NO];
-    if (@available(iOS 26.1, *)) {
-      isiOSAppOnVision = [NSNumber numberWithBool:[info isiOSAppOnVision]];
+    if (@available(iOS 15.0, *)) {
+      if (@available(iOS 26.1, *)) {
+        if ([info respondsToSelector:@selector(isiOSAppOnVision)]) {
+          isiOSAppOnVision = [NSNumber numberWithBool:[info isiOSAppOnVision]];
+        }
+      }
     }
     NSError *error = nil;
     NSDictionary *fsAttributes = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:&error];
