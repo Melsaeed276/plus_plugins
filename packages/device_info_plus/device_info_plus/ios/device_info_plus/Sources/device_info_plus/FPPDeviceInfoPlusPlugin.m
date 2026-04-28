@@ -33,8 +33,12 @@
     NSNumber *isiOSAppOnVision = [NSNumber numberWithBool:NO];
     if (@available(iOS 15.0, *)) {
       if (@available(iOS 26.1, *)) {
-        if ([info respondsToSelector:@selector(isiOSAppOnVision)]) {
-          isiOSAppOnVision = [NSNumber numberWithBool:[info isiOSAppOnVision]];
+        SEL isiOSAppOnVisionSelector = NSSelectorFromString(@"isiOSAppOnVision");
+        if ([info respondsToSelector:isiOSAppOnVisionSelector]) {
+          BOOL (*isiOSAppOnVisionIMP)(id, SEL) =
+              (BOOL (*)(id, SEL))[info methodForSelector:isiOSAppOnVisionSelector];
+          isiOSAppOnVision =
+              [NSNumber numberWithBool:isiOSAppOnVisionIMP(info, isiOSAppOnVisionSelector)];
         }
       }
     }
