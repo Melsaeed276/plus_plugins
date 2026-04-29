@@ -13,8 +13,6 @@ examples/all_plugins/pubspec.yaml
 
 .build/
 Podfile
-!example/ios/Podfile
-!example/macos/Podfile
 Podfile.lock
 Pods/
 .swiftpm/
